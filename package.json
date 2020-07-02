@@ -1,0 +1,68 @@
+{
+  "name": "battleships",
+  "version": "1.0.0",
+  "description": "game battleships",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx webpack -p --env production",
+    "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "make lint"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Romez/sea-battle.git"
+  },
+  "author": "Roman Ushakov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Romez/sea-battle/issues"
+  },
+  "homepage": "https://github.com/Romez/sea-battle#readme",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "classnames": "^2.2.6",
+    "css-loader": "^3.6.0",
+    "i18next": "^19.5.3",
+    "lodash": "^4.17.15",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-i18next": "^11.7.0",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.1.0",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.3.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-import-resolver-webpack": "^0.12.2",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^23.17.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.5",
+    "html-webpack-plugin": "^4.3.0",
+    "husky": "^4.2.5",
+    "jest": "^26.1.0",
+    "jest-cli": "^26.1.0",
+    "node-sass": "^4.14.1",
+    "prettier": "^2.0.5",
+    "sass-loader": "^9.0.0",
+    "style-loader": "^1.2.1",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

@@ -1,0 +1,25 @@
+---
+parser: babel-eslint
+
+plugins:
+  - react
+  - jest
+  - prettier
+  - babel
+  - react-hooks
+
+extends:
+  - airbnb
+  - eslint:recommended
+  - plugin:react/recommended
+  - plugin:prettier/recommended
+
+env:
+  browser: true
+  jest: true
+
+rules:
+  react/prop-types: 0
+  react/jsx-filename-extension: 0
+  react-hooks/rules-of-hooks: "error"
+  react-hooks/exhaustive-deps: "warn"

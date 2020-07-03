@@ -12,3 +12,6 @@ build:
 
 test:
 	npm test
+
+deploy: build
+	surge

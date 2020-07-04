@@ -13,16 +13,20 @@ export const makePositionKey = ({ x, y }) => `${x}:${y}`;
 const hasCollision = (positions, shipsPositions, fieldSize) => {
   const beginPoint = _.head(positions);
   const endPoint = _.last(positions);
-  if (beginPoint.x < 0 || beginPoint.y < 0 || endPoint.x > fieldSize - 1 || endPoint.y > fieldSize - 1) {
+
+  const isOutOfField = beginPoint.x < 0 || beginPoint.y < 0 || endPoint.x > fieldSize - 1 || endPoint.y > fieldSize - 1;
+  if (isOutOfField) {
     return true;
   }
 
   const allPositions = _.flatten(shipsPositions);
 
   return !_.isEmpty(
-    _.intersectionWith(allPositions, positions, (pos, { x, y }) => {
-      return _.inRange(pos.x, x - 1, x + 2) && _.inRange(pos.y, y - 1, y + 2);
-    }),
+    _.intersectionWith(
+      allPositions,
+      positions,
+      (pos, { x, y }) => _.inRange(pos.x, x - 1, x + 2) && _.inRange(pos.y, y - 1, y + 2),
+    ),
   );
 };
 

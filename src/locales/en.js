@@ -9,7 +9,8 @@ export default {
     },
     start: 'Start',
     restart: 'Restart',
-    misses: 'Misses',
-    hits: 'Hits',
+    totalShots: 'Total shots',
+    hitRate: 'Hit rate',
+    progress: 'Progress: {{progress}}%',
   },
 };

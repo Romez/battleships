@@ -1,24 +1,24 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table, ProgressBar } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import _ from 'lodash';
 
-import { selectGameInfo, selectCeilsById, selectShipsInfoById, selectShipsInfoAllIds, actions } from '../store';
-import { GAME_IDLE } from '../constants';
+import { selectGameInfo, actions } from '../store';
+import { GAME_IDLE, SHIPS_SIZES } from '../constants';
 import { generateField } from '../helpers';
 
 const Info = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { status: gameStatus, misses, hits } = useSelector(selectGameInfo);
-  const shipsById = useSelector(selectShipsInfoById);
-  const shipsAllIds = useSelector(selectShipsInfoAllIds);
-  const ceilsById = selectCeilsById;
+  const { status: gameStatus, hits } = useSelector(selectGameInfo);
 
   const handleStart = useCallback(() => {
     const ceils = generateField();
     dispatch(actions.startGame({ ceils }));
   }, [dispatch]);
+
+  const progress = _.round((hits / _.sum(SHIPS_SIZES)) * 100);
 
   return (
     <div className="">
@@ -28,16 +28,12 @@ const Info = () => {
             <th>{t('game.status')}</th>
             <td>{t(`game.statuses.${gameStatus}`)}</td>
           </tr>
-          <tr>
-            <th>{t('game.misses')}</th>
-            <td>{misses}</td>
-          </tr>
-          <tr>
-            <th>{t('game.hits')}</th>
-            <td>{hits}</td>
-          </tr>
         </tbody>
       </Table>
+
+      {gameStatus !== GAME_IDLE && (
+        <ProgressBar animated now={progress} className="mb-2" label={t('game.progress', { progress })} />
+      )}
 
       {gameStatus === GAME_IDLE && (
         <Button onClick={handleStart} className="d-block">

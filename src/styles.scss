@@ -2,7 +2,13 @@
 
 .field {
   display: grid;
-  grid-template-columns: repeat(10, 40px);
-  grid-template-rows: repeat(10, 40px);
-  justify-content: center;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 5px;
+}
+
+.field .btn::before {
+  content: "";
+  padding-bottom: 100%;
+  display: inline-block;
+  vertical-align: middle;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
@@ -6,10 +7,17 @@ import { SHIP_TYPE, EMPTY_TYPE, MISS_STATUS, UNKNOW_STATUS, HIT_STATUS, DEAD_STA
 import { actions, selectCeilsById } from '../store';
 
 const iconByStatus = {
-  [MISS_STATUS]: '-',
-  [HIT_STATUS]: '+',
+  [MISS_STATUS]: 'O',
+  [HIT_STATUS]: 'V',
   [DEAD_STATUS]: 'X',
   [UNKNOW_STATUS]: ' ',
+};
+
+const variantByStatus = {
+  [UNKNOW_STATUS]: 'outline-secondary',
+  [MISS_STATUS]: 'outline-secondary',
+  [HIT_STATUS]: 'outline-warning',
+  [DEAD_STATUS]: 'danger',
 };
 
 const actionsByCeilType = {
@@ -27,15 +35,16 @@ const Ceil = ({ ceilId }) => {
     dispatch(action({ ceil }));
   }, [dispatch, ceil]);
 
+  const icon = iconByStatus[ceil.status];
+
   return (
     <Button
       disabled={ceil.status !== UNKNOW_STATUS}
+      variant={variantByStatus[ceil.status]}
       size="sm"
-      variant="light"
-      className="rounded-0 border"
       onClick={handleOnClick}
     >
-      {ceil.type === SHIP_TYPE && ceil.status === UNKNOW_STATUS ? 1 : iconByStatus[ceil.status]}
+      {icon}
     </Button>
   );
 };

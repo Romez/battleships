@@ -22,18 +22,23 @@ const gameSlice = createSlice({
     status: GAME_IDLE,
     hits: 0,
     misses: 0,
-    ships: {
-      byId: {},
-      allIds: [],
-    },
+    ships: { byId: {}, allIds: [] },
   },
   reducers: {
     startGame: (state, { payload }) => {
       state.status = GAME_RUNNING;
+      state.hits = 0;
+      state.misses = 0;
 
       const ships = _.values(payload.ceils)
         .filter(({ type }) => type === SHIP_TYPE)
-        .reduce((acc, ceil) => ({ ...acc, [ceil.shipId]: [...(acc[ceil.shipId] || []), ceil.ceilId] }), {});
+        .reduce(
+          (acc, ceil) => ({
+            ...acc,
+            [ceil.shipId]: [...(acc[ceil.shipId] || []), ceil.ceilId],
+          }),
+          {},
+        );
 
       state.ships.byId = ships;
       state.ships.allIds = _.keys(ships);
@@ -43,6 +48,7 @@ const gameSlice = createSlice({
     },
     hitAction: (state) => {
       state.hits += 1;
+
       if (totalShipsCeilsCount === state.hits) {
         state.status = GAME_FINISHED;
       }
@@ -52,10 +58,7 @@ const gameSlice = createSlice({
 
 const ceilsSlice = createSlice({
   name: 'ceils',
-  initialState: {
-    byId: {},
-    allIds: [],
-  },
+  initialState: { byId: {}, allIds: [] },
   extraReducers: {
     [gameSlice.actions.startGame]: (state, { payload }) => {
       const { ceils } = payload;
@@ -72,6 +75,7 @@ const ceilsSlice = createSlice({
       state.byId[ceilId].status = HIT_STATUS;
 
       const allShipCeils = _.values(state.byId).filter((ceil) => ceil.shipId === shipId);
+
       if (_.every(allShipCeils, ({ status }) => status === HIT_STATUS)) {
         allShipCeils.forEach((c) => {
           c.status = DEAD_STATUS;
